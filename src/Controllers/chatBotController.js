@@ -93,9 +93,6 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   // Send the HTTP request to the Messenger Platform
   request({
     "url": "https://graph.facebook.com/v6.0/me/messages",
