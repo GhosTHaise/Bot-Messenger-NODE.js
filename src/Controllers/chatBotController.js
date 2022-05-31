@@ -88,17 +88,17 @@ const handlePostback = (sender_psid, received_postback) => {
 function callSendAPI(sender_psid, response) {
   // Construct the message body
   let request_body = {
-    "recipient": {
-      "id": sender_psid
+    recipient: {
+      id: sender_psid
     },
-    "message": response
+    message: response
   }
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v14.0/me/messages",
-    "qs": { "access_token": "EAAHZAi22jRqwBAN8dqWObQPhwqxLaWeQdp8ze5HcATcKGMhvPdyGH9iIKXWtVuaQhvvZCFFlyzZCgLOnZAlHsKQUkZBh2cphblElSS800gZAGnKfup9qCw9ZBFxx9VSyTJSnJcx35dlFRV6h972NmnmC4UL2cHy5PGriIDY32WrRfP9hxenRPfZB"},
-    "method": "POST",
-    "json": request_body
+    uri: "https://graph.facebook.com/v14.0/me/messages",
+    qs: { "access_token": "EAAHZAi22jRqwBAN8dqWObQPhwqxLaWeQdp8ze5HcATcKGMhvPdyGH9iIKXWtVuaQhvvZCFFlyzZCgLOnZAlHsKQUkZBh2cphblElSS800gZAGnKfup9qCw9ZBFxx9VSyTJSnJcx35dlFRV6h972NmnmC4UL2cHy5PGriIDY32WrRfP9hxenRPfZB"},
+    method: "POST",
+    json: request_body
   }, (err, res, body) => {
     if (!err) {
       console.log('message sent!');
