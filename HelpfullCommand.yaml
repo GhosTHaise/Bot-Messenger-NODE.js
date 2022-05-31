@@ -1,4 +1,4 @@
 testVerifyToken:
-  -curl -X GET "localhost:8080/webhook?hub.verify_token=<GhosT_is_amazing1234>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+  -curl -X GET "localhost:8080/webhook?hub.verify_token=GhosT_is_amazing1234&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
 getHerokuLogs:
   -heroku logs --tail
