@@ -98,6 +98,22 @@ const handleMessage = (sender_psid, received_message) => {
                 "payload": "no",
               }
             ],
+          },{
+            "title": "Is this the right picture 2?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
           }]
         }
       }
