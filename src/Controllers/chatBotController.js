@@ -1,3 +1,4 @@
+require("dotenv").config();
 const postWebhook = (req,res) => {
     let body = req.body;
 
@@ -23,7 +24,7 @@ const postWebhook = (req,res) => {
 //ajouter verification webhook
 const getWebhook = (req,res) => {
     // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "GhosT_is_amazing1234";
+  let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
     
   // Parse the query params
   let mode = req.query['hub.mode'];
