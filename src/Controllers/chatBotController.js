@@ -93,16 +93,19 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v6.0/me/messages",
+    "url": "https://graph.facebook.com/v6.0/me/messages",
     "qs": { "access_token": process.env.FB_WEB_TOKEN},
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log('message sent!')
+      console.log('message sent!');
+      console.log(response);
     } else {
       console.error("Unable to send message:" + err);
     }
