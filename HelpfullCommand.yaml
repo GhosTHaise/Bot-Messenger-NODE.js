@@ -2,3 +2,5 @@ testVerifyToken:
   -curl -X GET "localhost:8080/webhook?hub.verify_token=GhosT_is_amazing1234&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
 getHerokuLogs:
   -heroku logs --tail
+addLNP:
+  -curl -i -X POST \ d "access_token=$PAGE_APP_ACCESS_TOKEN" \ "https://graph.facebook.com/v7.0/me/nlp_configs?nlp_enabled=$NLP_ENABLED"
