@@ -62,6 +62,11 @@ const getWebhook = (req,res) => {
   }
 }
 
+//Additional function for NLP
+function firstTrait(nlp, name) {
+  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+}
+
 // Handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
