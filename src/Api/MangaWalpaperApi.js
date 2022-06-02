@@ -11,11 +11,12 @@ const getDatafromApi = () => {
     let apiresult = [];
     let i = 0;
     axios.request(options).then(function (response) {
-        for(let categorie of response.data[0]){
+        let obectKey = Object.keys(response.data[0]);
+        for( categorie in response.data[0]){
             apiresult.push({
                 "title":  "Categorie"+i,
                 "subtitle" : "Is it what you want ?",
-                "image_url" : response.data[0][0].thumbnail,
+                "image_url" : categorie.thumbnail,
                 "buttons" : {
                     "type" : "postback",
                     "title" : "Yes !",
