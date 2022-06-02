@@ -9,7 +9,7 @@ const axios = require("axios");
   }
 }; */
 //Mange scan info
-ApiData = [];
+let ApiData = [];
 const options = {
     method: 'GET',
     url: 'https://manga11.p.rapidapi.com/news',
@@ -20,8 +20,13 @@ const options = {
   };
 let axiosResponse;
 const getDatafromApi = (message) => {
-
-    /* ApiData.push(
+axios.request(options).then(function (response) {
+	axiosResponse = response.data;
+}).catch(function (error) {
+	console.error(error);
+});
+for(let i=0;i<5;i++){
+    ApiData.push(
         {
             "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
@@ -40,7 +45,7 @@ const getDatafromApi = (message) => {
             ],
           }
     )
- */
+}
 let apiResult = [{
     "title": message,
     "subtitle": "Tap a button to answer.",
