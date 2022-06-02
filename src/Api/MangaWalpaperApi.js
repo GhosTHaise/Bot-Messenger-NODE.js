@@ -18,6 +18,9 @@ const options = {
       'X-RapidAPI-Key': 'b10adcce97msh9638a9ae812c8aep106842jsn5c5e7b510b95'
     }
   };
+  fetch('https://animechan.vercel.app/api/random')
+  .then(response => response.json())
+  .then(quote => console.log(quote))  
 let axiosResponse;
 const getDatafromApi = (message) => {
 axios.request(options).then(function (response) {
@@ -30,7 +33,7 @@ for(let i=0;i<5;i++){
         {
             "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
-            "image_url" : "https://cdni.pornpics.com/460/7/528/96854230/96854230_074_443a.jpg",
+            "image_url" : "https://soulfulwater.pythonanywhere.com/media/40966110_079_cb8c.jpg",
             "buttons": [
               {
                 "type": "postback",
