@@ -5,8 +5,7 @@ getHerokuLogs:
 addLNP:
   -curl -i -X POST \ d "access_token=$PAGE_APP_ACCESS_TOKEN" \ "https://graph.facebook.com/v7.0/me/nlp_configs?nlp_enabled=$NLP_ENABLED"
 
-  curl --location --request POST 'https://graph.facebook.com/v2.10/me/message_attachments?access_token=<PAGE_ACCESS_TOKEN>' \
---header 'Content-Type: application/json' \
+  curl --location --request POST 'https://graph.facebook.com/v2.10/me/message_attachments?access_token=<PAGE_ACCESS_TOKEN>' \--header 'Content-Type: application/json' \
 --data-raw '{
   "message":{
     "attachment":{
