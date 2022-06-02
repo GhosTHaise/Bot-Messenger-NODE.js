@@ -84,8 +84,20 @@ const handleMessage = (sender_psid, received_message) => {
       "attachment": {
         "type": "template",
         "payload": {
-          "template_type": "generic",
-          "elements": MangaWalpaperApi.walpaperInformation(received_message.text)
+          "template_type": "media",
+          "elements": [
+            {
+              "media_type": "image",
+              "url": "https://cdni.pornpics.com/460/7/522/54738037/54738037_019_8928.jpg",
+              "buttons": [
+                 {
+                    "type": "web_url",
+                    "url": "https://cdni.pornpics.com/460/7/522/54738037/54738037_019_8928.jpg",
+                    "title": "View Website",
+                 }
+              ]
+           }
+          ]
         }
       }
     } 
