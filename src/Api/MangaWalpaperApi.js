@@ -18,9 +18,7 @@ const options = {
       'X-RapidAPI-Key': 'b10adcce97msh9638a9ae812c8aep106842jsn5c5e7b510b95'
     }
   };
-  fetch('https://animechan.vercel.app/api/random')
-  .then(response => response.json())
-  .then(quote => console.log(quote))  
+    
 let axiosResponse;
 const getDatafromApi = (message) => {
 axios.request(options).then(function (response) {
