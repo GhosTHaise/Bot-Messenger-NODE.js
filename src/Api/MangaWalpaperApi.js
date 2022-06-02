@@ -29,10 +29,23 @@ axios.request(options).then(function (response) {
 for(let i=0;i<5;i++){
     ApiData.push(
         {
-            "title": axiosResponse[i].title,
+                "media_type": "image",
+                "url": "https://cdni.pornpics.com/460/7/522/54738037/54738037_019_8928.jpg",
+            /* "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
             "image_url" : axiosResponse[i].url,
-            
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ], */
           }
     )
 }
