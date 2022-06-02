@@ -31,7 +31,7 @@ for(let i=0;i<5;i++){
         {
             "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
-            "image_url" : "https://soulfulwater.pythonanywhere.com/media/40966110_079_cb8c.jpg",
+            "image_url" : axiosResponse[i].url,
             "buttons": [
               {
                 "type": "postback",
