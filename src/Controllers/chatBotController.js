@@ -85,23 +85,7 @@ const handleMessage = (sender_psid, received_message) => {
         "type": "template",
         "payload": {
           "template_type": "generic",
-          "elements": [{
-            "title": `${received_message.text}`,
-            "subtitle": "Tap a button to answer.",
-            "image_url" : "https://wallpapercave.com/wpt/qXrvHA3.jpg",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
+          "elements": MangaWalpaperApi.walpaperInformation()
         }
       }
     } 

@@ -8,27 +8,24 @@ const options = {
   }
 };
 const getDatafromApi = () => {
-    let apiresult = [];
-    let i = 0;
-    axios.request(options).then(function (response) {
-        let obectKey = Object.keys(response.data[0]);
-        
-            apiresult.push({
-                "title":  "Categorie"+i,
-                "subtitle" : "Is it what you want ?",
-                "buttons" : {
-                    "type" : "postback",
-                    "title" : "Yes !",
-                    "payload" : "yes"
-                }
-            })
-            
-    }).catch(function (error) {
-        console.error(error);
-    });
-    console.log(apiresult)
-    return apiresult;
-
+let apiResult = [{
+    "title": `${received_message.text}`,
+    "subtitle": "Tap a button to answer.",
+    "image_url" : "https://wallpapercave.com/wpt/qXrvHA3.jpg",
+    "buttons": [
+      {
+        "type": "postback",
+        "title": "Yes!",
+        "payload": "yes",
+      },
+      {
+        "type": "postback",
+        "title": "No!",
+        "payload": "no",
+      }
+    ],
+  }]
+return apiResult;
 }
 module.exports = {
     walpaperInformation : getDatafromApi
