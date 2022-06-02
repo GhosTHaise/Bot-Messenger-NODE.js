@@ -28,6 +28,7 @@ const getDatafromApi = () => {
     }).catch(function (error) {
         console.error(error);
     });
+    console.log(apiresult)
     return apiresult;
 
 }
