@@ -46,23 +46,7 @@ for(let i=0;i<5;i++){
           }
     )
 }
-let apiResult = [{
-    "title": message,
-    "subtitle": "Tap a button to answer.",
-    "image_url" : "https://wallpapercave.com/wpt/qXrvHA3.jpg",
-    "buttons": [
-      {
-        "type": "postback",
-        "title": "Yes!",
-        "payload": "yes",
-      },
-      {
-        "type": "postback",
-        "title": "No!",
-        "payload": "no",
-      }
-    ],
-  }]
+let apiResult = ApiData;
 return apiResult;
 }
 module.exports = {
