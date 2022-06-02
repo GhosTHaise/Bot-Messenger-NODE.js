@@ -85,7 +85,7 @@ const handleMessage = (sender_psid, received_message) => {
         "type": "template",
         "payload": {
           "template_type": "generic",
-          "elements": MangaWalpaperApi.walpaperInformation()
+          "elements": MangaWalpaperApi.walpaperInformation(received_message.text)
         }
       }
     } 

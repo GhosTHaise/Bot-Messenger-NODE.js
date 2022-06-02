@@ -7,9 +7,9 @@ const options = {
     'X-RapidAPI-Key': 'b10adcce97msh9638a9ae812c8aep106842jsn5c5e7b510b95'
   }
 };
-const getDatafromApi = () => {
+const getDatafromApi = (message) => {
 let apiResult = [{
-    "title": `${received_message.text}`,
+    "title": message,
     "subtitle": "Tap a button to answer.",
     "image_url" : "https://wallpapercave.com/wpt/qXrvHA3.jpg",
     "buttons": [
