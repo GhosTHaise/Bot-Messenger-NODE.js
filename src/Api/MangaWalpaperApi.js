@@ -30,7 +30,7 @@ for(let i=0;i<5;i++){
         {
             "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
-            "image_url" : axiosResponse[i].url,
+            "image_url" : "https://images.mangafreak.net/mini_images/hero_gyakkyou_no_touhai/175x245",
             "buttons": [
               {
                 "type": "postback",
