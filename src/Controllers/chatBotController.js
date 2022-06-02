@@ -1,5 +1,8 @@
 require("dotenv").config();
+import MangaWalpaperApi from "../Api/MangaWalpaperApi";
 const request = require('request');
+const axios = require("axios");
+
 const postWebhook = (req,res) => {
     // Parse the request body from the POST
   let body = req.body;
@@ -70,7 +73,12 @@ function firstTrait(nlp, name) {
 // Handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
-
+  axios.request(MangaWalpaperApi.walpaperOption).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+  
   // Check if the message contains text
   if (received_message.text) {    
 
