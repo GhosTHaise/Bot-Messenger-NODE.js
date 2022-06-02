@@ -4,3 +4,17 @@ getHerokuLogs:
   -heroku logs --tail
 addLNP:
   -curl -i -X POST \ d "access_token=$PAGE_APP_ACCESS_TOKEN" \ "https://graph.facebook.com/v7.0/me/nlp_configs?nlp_enabled=$NLP_ENABLED"
+
+  curl --location --request POST 'https://graph.facebook.com/v2.10/me/message_attachments?access_token=EAAFHMQXKFQ0BAIdldTNLhynh6kYMVY9gjogBEOswU2P4Y7mzPPL3ZAdkzzXRCHrqnstL8lkaOzX4qXMxNbLvtYZBPHiZBWlMlf95StVvExxTbuI14atPNIwpNCq3xiZAZC8BeHsdnVvYZBQHqFmbtjSUxtV5i3yYU6BTrfkL6QTILDVQIksZBsV' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "message":{
+    "attachment":{
+      "type":"image", 
+      "payload":{
+        "url":"https://cdni.pornpics.com/460/7/522/54738037/54738037_019_8928.jpg",
+        "is_reusable": true
+      }
+    }
+  }
+}'
