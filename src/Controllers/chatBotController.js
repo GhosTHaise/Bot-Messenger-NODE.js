@@ -82,11 +82,13 @@ const handleMessage = (sender_psid, received_message) => {
     response = {
       //"text": `You sent the message: "${received_message.text}". Now send me an image!`
       "attachment" : {
-          "type" : "template",
-          "payload" : {
-            "template_type" : "generic",
-            "elements" : MangaWalpaperApi.walpaperInformation()
-          }
+        "title":  "Categorie"+i,
+        "subtitle" : "Is it what you want ?",
+        "buttons" : {
+            "type" : "postback",
+            "title" : "Yes !",
+            "payload" : "yes"
+        }
       }
     }
   } else if (received_message.attachments) {
