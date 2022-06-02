@@ -16,7 +16,7 @@ const getDatafromApi = () => {
             apiresult.push({
                 "title":  "Categorie"+i,
                 "subtitle" : "Is it what you want ?",
-                "image_url" : categorie.thumbnail,
+                "image_url" : response.data[0][categorie].thumbnail,
                 "buttons" : {
                     "type" : "postback",
                     "title" : "Yes !",
