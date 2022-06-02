@@ -96,42 +96,66 @@ const handleMessage = (sender_psid, received_message) => {
     response = {
       "attachment": {
         "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
+      "payload": {
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements": [
+          {
+            "title": "Classic T-Shirt Collection",
+            "subtitle": "See all our colors",
+            "image_url": "https://originalcoastclothing.com/img/collection.png",          
             "buttons": [
               {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
+                "title": "View",
+                "type": "web_url",
+                "url": "https://originalcoastclothing.com/collection",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://originalcoastclothing.com/"            
               }
-            ],
-          },{
-            "title": "Is this the right picture 2?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
+            ]
+          },
+          {
+            "title": "Classic White T-Shirt",
+            "subtitle": "See all our colors",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://originalcoastclothing.com/view?item=100",
+              "messenger_extensions": false,
+              "webview_height_ratio": "tall"
+            }
+          },
+          {
+            "title": "Classic Blue T-Shirt",
+            "image_url": "https://originalcoastclothing.com/img/blue-t-shirt.png",
+            "subtitle": "100% Cotton, 200% Comfortable",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://originalcoastclothing.com/view?item=101",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://originalcoastclothing.com/"
+            },
             "buttons": [
               {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
+                "title": "Shop Now",
+                "type": "web_url",
+                "url": "https://originalcoastclothing.com/shop?item=101",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://originalcoastclothing.com/"            
               }
-            ],
-          }]
-        }
+            ]        
+          }
+        ],
+         "buttons": [
+          {
+            "title": "View More",
+            "type": "postback",
+            "payload": "payload"            
+          }
+        ]  
+      }
       }
     }
   } 
