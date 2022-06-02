@@ -13,13 +13,13 @@ const getDatafromApi = () => {
     axios.request(options).then(function (response) {
         for(let categorie of response.data[0]){
             apiresult.push({
-                "title":  Object.keys(response.data[0])[i],
+                "title":  "Categorie"+i,
                 "subtitle" : "Is it what you want ?",
                 "image_url" : response.data[0][0].thumbnail,
                 "buttons" : {
                     "type" : "postback",
                     "title" : "Yes !",
-                    "payload" : Object.keys(response.data[0])[i]
+                    "payload" : "yes"
                 }
             })
             i++;
