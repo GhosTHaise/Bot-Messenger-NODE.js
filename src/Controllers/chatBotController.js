@@ -1,5 +1,8 @@
 require("dotenv").config();
+import MangaWalpaperApi from "../Api/MangaWalpaperApi";
 const request = require('request');
+
+
 const postWebhook = (req,res) => {
     // Parse the request body from the POST
   let body = req.body;
@@ -12,7 +15,7 @@ const postWebhook = (req,res) => {
 
       // Gets the body of the webhook event
   let webhook_event = entry.messaging[0];
-  console.log(webhook_event);
+  //console.log(webhook_event);
 
   // Get the sender PSID
   let sender_psid = webhook_event.sender.id;
@@ -70,56 +73,43 @@ function firstTrait(nlp, name) {
 // Handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
-
+  
+  
   // Check if the message contains text
   if (received_message.text) {    
 
     // Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
-  } else if (received_message.attachments) {
-  
-    // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
+    //"text": `You sent the message: "${received_message.text}". Now send me an image!`
     response = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          },{
-            "title": "Is this the right picture 2?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
+          "elements": MangaWalpaperApi.walpaperInformation(received_message.text)
+        }
+      }
+    } 
+  } else if (received_message.attachments) {
+  
+    // Gets the URL of the message attachment
+    let attachment_url = received_message.attachments[0].payload.url;
+    response = {
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"open_graph",
+          "elements":[
+             {
+              "url":"https://open.spotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://en.wikipedia.org/wiki/Rickrolling",
+                  "title":"View More"
+                }              
+              ]      
+            }
+          ]
         }
       }
     }
