@@ -83,7 +83,7 @@ const handleMessage = (sender_psid, received_message) => {
       //"text": `You sent the message: "${received_message.text}". Now send me an image!`
       "attachment" : {
           "type" : "template",
-          "playload" : {
+          "payload" : {
             "template_type" : "generic",
             "elements" : MangaWalpaperApi.walpaperInformation()
           }
