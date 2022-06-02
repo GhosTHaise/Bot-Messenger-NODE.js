@@ -20,13 +20,8 @@ const options = {
   };
 let axiosResponse;
 const getDatafromApi = (message) => {
-axios.request(options).then(function (response) {
-	axiosResponse = response.data;
-}).catch(function (error) {
-	console.error(error);
-});
-for(let i=0;i<5;i++){
-    ApiData.push(
+
+    /* ApiData.push(
         {
             "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
@@ -45,7 +40,7 @@ for(let i=0;i<5;i++){
             ],
           }
     )
-}
+ */
 let apiResult = [{
     "title": message,
     "subtitle": "Tap a button to answer.",
