@@ -79,8 +79,11 @@ const handleMessage = (sender_psid, received_message) => {
   if (received_message.text) {    
 
     // Create the payload for a basic text message
-    //"text": `You sent the message: "${received_message.text}". Now send me an image!`
     response = {
+      "text": `You sent the message: "${received_message.text}". Now send me an image!`
+    }
+    
+    /* response = {
       "attachment": {
         "type": "template",
         "payload": {
@@ -88,7 +91,7 @@ const handleMessage = (sender_psid, received_message) => {
           "elements": MangaWalpaperApi.walpaperInformation(received_message.text)
         }
       }
-    } 
+    }  */
   } else if (received_message.attachments) {
   
     // Gets the URL of the message attachment
