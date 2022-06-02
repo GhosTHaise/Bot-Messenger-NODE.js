@@ -32,7 +32,9 @@ for(let i=0;i<5;i++){
             "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
             "image_url" : axiosResponse[i].url,
-            
+            "buttons": [
+              
+            ],
           }
     )
 }
