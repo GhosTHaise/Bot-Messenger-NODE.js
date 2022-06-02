@@ -88,6 +88,7 @@ const handleMessage = (sender_psid, received_message) => {
           "elements": [{
             "title": `${received_message.text}`,
             "subtitle": "Tap a button to answer.",
+            "image_url" : "https://wallpapercave.com/wpt/qXrvHA3.jpg",
             "buttons": [
               {
                 "type": "postback",
