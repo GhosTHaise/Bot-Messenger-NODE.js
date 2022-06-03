@@ -89,7 +89,7 @@ const handleMessage = (sender_psid, received_message) => {
             "elements": [
               {
                 "media_type": "image",
-                "attachment_id":"752989762732483"
+                "attachment_id":"583556273146252"
              }
             ]
           }
