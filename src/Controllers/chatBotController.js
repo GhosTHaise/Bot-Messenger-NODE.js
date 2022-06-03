@@ -80,21 +80,39 @@ const handleMessage = (sender_psid, received_message) => {
 
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "media",
-          "elements": [
-            {
-              "media_type": "image",
-              "attachment_id":"576659263894493"
-              
-           }
-          ]
+    if(received_message.text == "sex"){
+      response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "media",
+            "elements": [
+              {
+                "media_type": "image",
+                "attachment_id":"752989762732483"
+             }
+            ]
+          }
         }
-      }
-    } 
+      } 
+    }else{
+      response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "media",
+            "elements": [
+              {
+                "media_type": "image",
+                "attachment_id":"576659263894493"
+                
+             }
+            ]
+          }
+        }
+      } 
+    }
+    
   } else if (received_message.attachments) {
   
     // Gets the URL of the message attachment
