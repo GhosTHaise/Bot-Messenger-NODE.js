@@ -206,7 +206,26 @@ function callSendAPI(sender_psid, response) {
     }
   }); 
 }
-
+/**retourner du text :
+ * utiliser cette fonction si vous souhaiter retourner du text
+ * 
+ * **/
+ const responseText = (text) =>{
+  return {
+    "text" : text 
+  }
+}
+const responseObject = (_type,_element) => {
+  return {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "type",
+        "elements": _element
+      }
+    }
+  } 
+}
 module.exports = {
     postWebhook : postWebhook,
     getWebhook : getWebhook
