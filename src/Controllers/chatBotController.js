@@ -70,6 +70,7 @@ function firstTrait(nlp, name) {
   return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 }
 
+
 // Handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
@@ -77,40 +78,33 @@ const handleMessage = (sender_psid, received_message) => {
   
   // Check if the message contains text
   if (received_message.text) {    
-
+    // check greeting is here and is confident
+    const greeting = firstTrait(message.nlp, 'wit$greetings');
+    if (greeting && greeting.confidence > 0.8) {
+      callSendAPI(sender_psid,responseText("hi there"));
+    }/*  else { 
+      // default logic
+    } */
+    
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
     if(received_message.text == "sex"){
-      response = {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "media",
-            "elements": [
-              {
-                "media_type": "image",
-                "attachment_id":"583556273146252"
-             }
-            ]
-          }
-        }
-      } 
+      response = responseObject('media',
+      [
+        {
+          "media_type": "image",
+          "attachment_id":"583556273146252"
+       }
+      ]);
     }else{
-      response = {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "media",
-            "elements": [
-              {
-                "media_type": "image",
-                "attachment_id":"576659263894493"
-                
-             }
-            ]
-          }
-        }
-      } 
+      response = responseObject('media',
+      [
+        {
+          "media_type": "image",
+          "attachment_id":"576659263894493"
+          
+       }
+      ])
     }
     
   } else if (received_message.attachments) {
@@ -206,7 +200,26 @@ function callSendAPI(sender_psid, response) {
     }
   }); 
 }
-
+/**retourner du text :
+ * utiliser cette fonction si vous souhaiter retourner du text
+ * 
+ * **/
+const responseText = (text) =>{
+  return {
+    "text" : text 
+  }
+}
+const responseObject = (_type,_element) => {
+  return {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "type",
+        "elements": _element
+      }
+    }
+  } 
+}
 module.exports = {
     postWebhook : postWebhook,
     getWebhook : getWebhook
