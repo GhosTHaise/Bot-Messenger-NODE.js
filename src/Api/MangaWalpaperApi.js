@@ -18,6 +18,7 @@ const options = {
       'X-RapidAPI-Key': 'b10adcce97msh9638a9ae812c8aep106842jsn5c5e7b510b95'
     }
   };
+    
 let axiosResponse;
 const getDatafromApi = (message) => {
 axios.request(options).then(function (response) {
@@ -28,9 +29,9 @@ axios.request(options).then(function (response) {
 for(let i=0;i<5;i++){
     ApiData.push(
         {
-            "title": axiosResponse[i].title,
+            /* "title": axiosResponse[i].title,
             "subtitle": "Tap a button to answer.",
-            "image_url" : "https://images.mangafreak.net/mini_images/yuusha_yamemasu/175x245",
+            "image_url" : axiosResponse[i].url,
             "buttons": [
               {
                 "type": "postback",
@@ -42,7 +43,7 @@ for(let i=0;i<5;i++){
                 "title": "No!",
                 "payload": "no",
               }
-            ],
+            ], */
           }
     )
 }

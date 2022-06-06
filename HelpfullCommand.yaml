@@ -4,3 +4,18 @@ getHerokuLogs:
   -heroku logs --tail
 addLNP:
   -curl -i -X POST \ d "access_token=$PAGE_APP_ACCESS_TOKEN" \ "https://graph.facebook.com/v7.0/me/nlp_configs?nlp_enabled=$NLP_ENABLED"
+
+addMediaFile&getAttachmentId:
+  curl --location --request POST 'https://graph.facebook.com/v2.10/me/message_attachments?access_token=<PAGE_ACCESS_TOKEN>' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+  "message":{
+    "attachment":{
+      "type":"image", 
+      "payload":{
+        "url":"https://s1-n10-ca-cdn.eporner.com/v5/d18bf5e5f228a938442fd2423809a55f/629a0c75015e00/6276927-360p.mp4",
+        "is_reusable": true
+      }
+    }
+  }
+}'

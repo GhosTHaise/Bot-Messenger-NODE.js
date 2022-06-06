@@ -1,5 +1,4 @@
 require("dotenv").config();
-import MangaWalpaperApi from "../Api/MangaWalpaperApi";
 const request = require('request');
 
 
@@ -80,36 +79,81 @@ const handleMessage = (sender_psid, received_message) => {
 
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": MangaWalpaperApi.walpaperInformation(received_message.text)
+    if(received_message.text == "sex"){
+      response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "media",
+            "elements": [
+              {
+                "media_type": "image",
+                "attachment_id":"583556273146252"
+             }
+            ]
+          }
         }
-      }
-    } 
+      } 
+    }else{
+      response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "media",
+            "elements": [
+              {
+                "media_type": "image",
+                "attachment_id":"576659263894493"
+                
+             }
+            ]
+          }
+        }
+      } 
+    }
+    
   } else if (received_message.attachments) {
   
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
-      "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"open_graph",
-          "elements":[
-             {
-              "url":"https://open.spotify.com/track/7GhIk7Il098yCjg4BQjzvb",
-              "buttons":[
-                {
-                  "type":"web_url",
-                  "url":"https://en.wikipedia.org/wiki/Rickrolling",
-                  "title":"View More"
-                }              
-              ]      
-            }
-          ]
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          },{
+            "title": "Is this the right picture 2?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
         }
       }
     }
@@ -161,7 +205,26 @@ function callSendAPI(sender_psid, response) {
     }
   }); 
 }
-
+/**retourner du text :
+ * utiliser cette fonction si vous souhaiter retourner du text
+ * 
+ * **/
+ const responseText = (text) =>{
+  return {
+    "text" : text 
+  }
+}
+const responseObject = (_type,_element) => {
+  return {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "type",
+        "elements": _element
+      }
+    }
+  } 
+}
 module.exports = {
     postWebhook : postWebhook,
     getWebhook : getWebhook
