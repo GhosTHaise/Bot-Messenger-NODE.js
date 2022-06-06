@@ -1,5 +1,4 @@
 require("dotenv").config();
-import MangaWalpaperApi from "../Api/MangaWalpaperApi";
 const request = require('request');
 
 

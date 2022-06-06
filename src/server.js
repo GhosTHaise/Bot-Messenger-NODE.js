@@ -1,9 +1,10 @@
+import {createRequire} from "module" ;
+const require = createRequire(import.meta.url);
 require("dotenv").config();
 import express from "express";
-import viewEngineConfig from "./config/viewEngine";
-import initWebRoute from "./Routes/web.js";
+const viewEngineConfig = require("./config/viewEngine");
+const initWebRoute = require("./Routes/web.js");
 import bodyParser from "body-parser";
-
 const app = express();
 const PORT = process.env.PORT || 8000;
 //Moteur de template
