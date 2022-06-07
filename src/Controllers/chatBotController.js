@@ -77,9 +77,6 @@ const handleMessage = async (sender_psid, received_message) => {
       callSendAPI(sender_psid,{
       "text" : text
      });
-     setTimeout(() =>{
-
-     },1500);
      resolve()
     });
   }
@@ -111,9 +108,9 @@ const handleMessage = async (sender_psid, received_message) => {
     }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am the GhosT !").then(()=>{
-       responseText("See my work on : https://github.com/GhosTHaise").then(()=>{
-         console.log("get my work succesful");
-       });
+       setTimeout(responseText("See my work on : https://github.com/GhosTHaise").then(()=>{
+        console.log("get my work succesful");
+      }),1500);
      }) 
     }
     // Create the payload for a basic text message
