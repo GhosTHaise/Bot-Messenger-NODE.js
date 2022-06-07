@@ -72,7 +72,11 @@ function firstTrait(nlp, name) {
 // Handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
-  
+  const responseText = (text) =>{
+    callSendAPI(sender_psid,{
+      "text" : text
+    })
+  }
   
   // Check if the message contains text
   if (received_message.text) {    
@@ -162,11 +166,7 @@ const handleMessage = (sender_psid, received_message) => {
       }
     }
   } 
-  const responseText = (text) =>{
-    callSendAPI(sender_psid,{
-      "text" : text
-    })
-  }
+
   
   // Sends the response message
   callSendAPI(sender_psid, response);
