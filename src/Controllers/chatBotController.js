@@ -82,7 +82,7 @@ const handleMessage = (sender_psid, received_message) => {
   let entityChoosen = "";
   // check greeting is here and is confident
   entitiesArr.forEach((entity)=>{
-    let message_type = firstTrait(received_message.nlp, 'wit$greetings');
+    let message_type = firstTrait(received_message.nlp, entity);
     if(message_type && message_type.confidence > 0.8){
         entityChoosen = entity;
     }
@@ -226,8 +226,8 @@ function callSendAPI(sender_psid, response) {
   }, (err, res, body) => {
     if (!err) {
       console.log('message sent!');
-      console.log(response);
-      console.log(res)
+      /* console.log(response);
+      console.log(res) */
     } else {
       console.error("Unable to send message:" + err);
     }
