@@ -106,8 +106,9 @@ const handleMessage = async (sender_psid, received_message) => {
       scheduleSimple_request(responseText)
     }
     if(received_message.text == "Developer"){
-     await responseText("Do you know me ? I am the GhosT !");
-     await responseText("See my work on : https://github.com/GhosTHaise");
+     responseText("Do you know me ? I am the GhosT !").then(async()=>{
+       await responseText("See my work on : https://github.com/GhosTHaise");
+     }) 
     }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
