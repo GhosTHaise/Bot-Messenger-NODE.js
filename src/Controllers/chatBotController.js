@@ -107,7 +107,9 @@ const handleMessage = async (sender_psid, received_message) => {
     }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am the GhosT !").then(()=>{
-       responseText("See my work on : https://github.com/GhosTHaise");
+       responseText("See my work on : https://github.com/GhosTHaise").then(()=>{
+         console.log("get my work succesful");
+       });
      }) 
     }
     // Create the payload for a basic text message
