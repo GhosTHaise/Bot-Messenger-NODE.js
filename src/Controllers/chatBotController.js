@@ -103,6 +103,10 @@ const handleMessage = (sender_psid, received_message) => {
       responseText("veillez patienter"); */
       scheduleSimple_request(responseText)
     }
+    if(received_message.text == "Developer"){
+      responseText("Do you know me ? I am the GhosT !");
+      responseText("See my work on : https://github.com/GhosTHaise");
+    }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
     if(received_message.text == "sex"){
