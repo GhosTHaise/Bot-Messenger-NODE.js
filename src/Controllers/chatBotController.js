@@ -1,6 +1,6 @@
 require("dotenv").config();
 const request = require('request');
-
+const {schedule}= require("../Api/calendarApi");
 
 const postWebhook = (req,res) => {
     // Parse the request body from the POST
@@ -76,7 +76,9 @@ const handleMessage = (sender_psid, received_message) => {
   
   // Check if the message contains text
   if (received_message.text) {    
-
+    if(received_message.text == "schedule"){
+      schedule(sender_psid,callSendAPI)
+    }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
     if(received_message.text == "sex"){
