@@ -1,10 +1,45 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
-
+const credentials = {
+    "installed":{"client_id":"979034939858-h3fl2v5adjga0leq8jv50jo21nm25pkf.apps.googleusercontent.com","project_id":"direct-obelisk-352606","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:8080"]}
+}
+const token = {"access_token":"ya29.a0ARrdaM_DjFm6BAQqFnLSmxUuVZAAnxwZExZzKlrvRO6aZckaU2s1STRVQ3F_h9-0tztnUr8nQtzrFtCXNOjcpplioE9sYaH0UHK60HM3taZOGjhmeRFYsgBbcLtzQiWqhyqRKC4xleEeaAzJn0h9QXbn38GJ","refresh_token":"1//03LeZOgJ5oXPyCgYIARAAGAMSNwF-L9IrHGc4ipitFuaGpzdxbnDkmUcgiWbexBk23_68qQmUD3XZUKMX47fQuwAVwOTyk3sVH6k","scope":"https://www.googleapis.com/auth/calendar.readonly","token_type":"Bearer","expiry_date":1686132372}
+const scheduleSimple_request = (callback) => {
+    const {client_secret, client_id, redirect_uris} = credentials.installed;
+    const auth = new google.auth.OAuth2(
+      client_id, client_secret, redirect_uris[0]);
+      auth.setCredentials(JSON.parse(token));
+      //Main code
+      const calendar = google.calendar({version: 'v3', auth});
+      callback("event en cours ...")
+    calendar.events.list({
+        calendarId: 'primary',
+        timeMin: (new Date()).toISOString(),
+        maxResults: 10,
+        singleEvents: true,
+        orderBy: 'startTime',
+    }, (err, res) => {
+        if (err) return console.log('The API returned an error: ' + err);
+        const events = res.data.items;
+        if (events.length) {
+        console.log('Upcoming 10 events:');
+        events.map((event, i) => {
+            const start = event.start.dateTime || event.start.date;
+            console.log(event)
+            console.log(`${start} - ${event.summary}`);
+            
+        });
+        callback("send your schedule")
+        } else {
+        callback("No up comming event")
+        console.log('No upcoming events found.');
+        }
+    });
+}
 const schedule = (callback) => {
     // If modifying these scopes, delete token.json.
-    callback("je vai vous envoyer l'emploie du temps")
+callback("je vai vous envoyer l'emploie du temps")
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
@@ -15,7 +50,6 @@ const TOKEN_PATH = 'token.json';
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Calendar API.
   authorize(JSON.parse(content), listEvents);
-  callback("Process finish")
 });
 // Load client secrets from a local file.
 
@@ -103,5 +137,5 @@ function listEvents(auth) {
 }
 }
 module.exports = {
-    schedule
+    scheduleSimple_request
 }

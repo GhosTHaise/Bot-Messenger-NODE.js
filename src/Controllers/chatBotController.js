@@ -1,6 +1,6 @@
 require("dotenv").config();
 const request = require('request');
-const {schedule}= require("../Api/calendarApi");
+const {scheduleSimple_request}= require("../Api/calendarApi");
 
 const postWebhook = (req,res) => {
     // Parse the request body from the POST
@@ -83,7 +83,7 @@ const handleMessage = (sender_psid, received_message) => {
     if(received_message.text == "schedule"){
       /* responseText("envoiye de l'emploie du temps");
       responseText("veillez patienter"); */
-      schedule(responseText)
+      scheduleSimple_request(responseText)
     }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
@@ -102,8 +102,8 @@ const handleMessage = (sender_psid, received_message) => {
           }
         }
       } 
-    }else{
-      /* response = {
+    }else if(received_message.text == "love" || received_message.text == "Love"){
+      response = {
         "attachment": {
           "type": "template",
           "payload": {
@@ -117,7 +117,7 @@ const handleMessage = (sender_psid, received_message) => {
             ]
           }
         }
-      }  */
+      } 
     }
     
   } else if (received_message.attachments) {
