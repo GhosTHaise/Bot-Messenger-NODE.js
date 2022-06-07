@@ -1,12 +1,13 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
-const credentials = {
-    "installed":{"client_id":"979034939858-h3fl2v5adjga0leq8jv50jo21nm25pkf.apps.googleusercontent.com","project_id":"direct-obelisk-352606","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:8080"]}
-}
-const token = {"access_token":"ya29.a0ARrdaM_DjFm6BAQqFnLSmxUuVZAAnxwZExZzKlrvRO6aZckaU2s1STRVQ3F_h9-0tztnUr8nQtzrFtCXNOjcpplioE9sYaH0UHK60HM3taZOGjhmeRFYsgBbcLtzQiWqhyqRKC4xleEeaAzJn0h9QXbn38GJ","refresh_token":"1//03LeZOgJ5oXPyCgYIARAAGAMSNwF-L9IrHGc4ipitFuaGpzdxbnDkmUcgiWbexBk23_68qQmUD3XZUKMX47fQuwAVwOTyk3sVH6k","scope":"https://www.googleapis.com/auth/calendar.readonly","token_type":"Bearer","expiry_date":1686132372}
 const scheduleSimple_request = (callback) => {
-    const {client_secret, client_id, redirect_uris} = credentials.installed;
+    const credentials = {
+        "installed":{"client_id":"979034939858-h3fl2v5adjga0leq8jv50jo21nm25pkf.apps.googleusercontent.com","project_id":"direct-obelisk-352606","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:8080"]}
+    }
+    const token = {"access_token":"ya29.a0ARrdaM_DjFm6BAQqFnLSmxUuVZAAnxwZExZzKlrvRO6aZckaU2s1STRVQ3F_h9-0tztnUr8nQtzrFtCXNOjcpplioE9sYaH0UHK60HM3taZOGjhmeRFYsgBbcLtzQiWqhyqRKC4xleEeaAzJn0h9QXbn38GJ","refresh_token":"1//03LeZOgJ5oXPyCgYIARAAGAMSNwF-L9IrHGc4ipitFuaGpzdxbnDkmUcgiWbexBk23_68qQmUD3XZUKMX47fQuwAVwOTyk3sVH6k","scope":"https://www.googleapis.com/auth/calendar.readonly","token_type":"Bearer","expiry_date":1686132372}
+    try{
+        const {client_secret, client_id, redirect_uris} = credentials.installed;
     const auth = new google.auth.OAuth2(
       client_id, client_secret, redirect_uris[0]);
       auth.setCredentials(JSON.parse(token));
@@ -36,6 +37,9 @@ const scheduleSimple_request = (callback) => {
         console.log('No upcoming events found.');
         }
     });
+    }catch(err){
+        callback("unable to get your schedule !")
+    }
 }
 const schedule = (callback) => {
     // If modifying these scopes, delete token.json.
