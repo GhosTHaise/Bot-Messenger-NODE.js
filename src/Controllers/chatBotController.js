@@ -70,12 +70,14 @@ function firstTrait(nlp, name) {
 }
 
 // Handles messages events
-const handleMessage = (sender_psid, received_message) => {
+const handleMessage = async (sender_psid, received_message) => {
   let response;
   const responseText = (text) =>{
-    callSendAPI(sender_psid,{
+    return new Promise((resolve,reject)=>{
+      callSendAPI(sender_psid,{
       "text" : text
-    })
+     });
+    });
   }
   //Greeting
   let entitiesArr = ['wit$greetings','wit$thanks','wit$bye'];
@@ -88,11 +90,11 @@ const handleMessage = (sender_psid, received_message) => {
     }
   })
   if (entityChoosen == "wit$greetings") {
-    responseText('Hi there !');
+   await responseText('Hi there !');
   }else if(entityChoosen == 'wit$thanks'){
-    responseText("You are welcome !")
+   await responseText("You are welcome !")
   }else if(entityChoosen == "wit$bye"){
-    responseText("See you next time !")
+   await responseText("See you next time !")
   } else { 
   // default logic
   
@@ -104,8 +106,8 @@ const handleMessage = (sender_psid, received_message) => {
       scheduleSimple_request(responseText)
     }
     if(received_message.text == "Developer"){
-      responseText("Do you know me ? I am the GhosT !");
-      responseText("See my work on : https://github.com/GhosTHaise");
+     await responseText("Do you know me ? I am the GhosT !");
+     await responseText("See my work on : https://github.com/GhosTHaise");
     }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
