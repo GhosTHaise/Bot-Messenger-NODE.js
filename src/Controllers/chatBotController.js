@@ -77,12 +77,24 @@ const handleMessage = (sender_psid, received_message) => {
       "text" : text
     })
   }
+  //Greeting
+  let entitiesArr = ['wit$greetings','wit$thanks','wit$bye'];
+  let entityChoosen = "";
   // check greeting is here and is confident
-  const greeting = firstTrait(received_message.nlp, 'wit$greetings');
-  if (greeting && greeting.confidence > 0.8) {
-    responseText('Hi there!');
+  entitiesArr.forEach((entity)=>{
+    let message_type = firstTrait(received_message.nlp, 'wit$greetings');
+    if(message_type && message_type.confidence > 0.8){
+        entityChoosen = entity;
+    }
+  })
+  if (entityChoosen == "wit$greetings") {
+    responseText('Hi there !');
+  }else if(entityChoosen == 'wit$thanks'){
+    responseText("You are welcome !")
+  }else if(entityChoosen == "wit$bye"){
+    responseText("See you next time !")
   } else { 
-    // default logic
+  // default logic
   
   // Check if the message contains text
   if (received_message.text) {    
