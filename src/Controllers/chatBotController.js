@@ -80,7 +80,7 @@ const handleMessage = (sender_psid, received_message) => {
   // check greeting is here and is confident
   const greeting = firstTrait(received_message.nlp, 'wit$greetings');
   if (greeting && greeting.confidence > 0.8) {
-    sendResponse('Hi there!');
+    responseText('Hi there!');
   } else { 
     // default logic
   
