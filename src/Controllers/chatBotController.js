@@ -81,8 +81,8 @@ const handleMessage = (sender_psid, received_message) => {
   // Check if the message contains text
   if (received_message.text) {    
     if(received_message.text == "schedule"){
-      responseText("envoiye de l'emploie du temps");
-      responseText("veillez patienter");
+      /* responseText("envoiye de l'emploie du temps");
+      responseText("veillez patienter"); */
       schedule(responseText)
     }
     // Create the payload for a basic text message
@@ -103,7 +103,7 @@ const handleMessage = (sender_psid, received_message) => {
         }
       } 
     }else{
-      response = {
+      /* response = {
         "attachment": {
           "type": "template",
           "payload": {
@@ -117,7 +117,7 @@ const handleMessage = (sender_psid, received_message) => {
             ]
           }
         }
-      } 
+      }  */
     }
     
   } else if (received_message.attachments) {
