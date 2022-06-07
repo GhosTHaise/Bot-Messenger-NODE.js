@@ -1,6 +1,6 @@
 require("dotenv").config();
 const request = require('request');
-
+const {scheduleSimple_request}= require("../Api/calendarApi");
 
 const postWebhook = (req,res) => {
     // Parse the request body from the POST
@@ -72,11 +72,25 @@ function firstTrait(nlp, name) {
 // Handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
-  
+  const responseText = (text) =>{
+    callSendAPI(sender_psid,{
+      "text" : text
+    })
+  }
+  // check greeting is here and is confident
+  const greeting = firstTrait(received_message.nlp, 'wit$greetings');
+  if (greeting && greeting.confidence > 0.8) {
+    sendResponse('Hi there!');
+  } else { 
+    // default logic
   
   // Check if the message contains text
   if (received_message.text) {    
-
+    if(received_message.text == "schedule"){
+      /* responseText("envoiye de l'emploie du temps");
+      responseText("veillez patienter"); */
+      scheduleSimple_request(responseText)
+    }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
     if(received_message.text == "sex"){
@@ -94,7 +108,7 @@ const handleMessage = (sender_psid, received_message) => {
           }
         }
       } 
-    }else{
+    }else if(received_message.text == "love" || received_message.text == "Love"){
       response = {
         "attachment": {
           "type": "template",
@@ -158,9 +172,11 @@ const handleMessage = (sender_psid, received_message) => {
       }
     }
   } 
+
   
   // Sends the response message
-  callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response);
+  } 
 }
 
 // Handles messaging_postbacks events
@@ -209,11 +225,7 @@ function callSendAPI(sender_psid, response) {
  * utiliser cette fonction si vous souhaiter retourner du text
  * 
  * **/
- const responseText = (text) =>{
-  return {
-    "text" : text 
-  }
-}
+
 const responseObject = (_type,_element) => {
   return {
     "attachment": {
