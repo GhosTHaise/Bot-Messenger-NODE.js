@@ -77,6 +77,9 @@ const handleMessage = (sender_psid, received_message) => {
   // Check if the message contains text
   if (received_message.text) {    
     if(received_message.text == "schedule"){
+      callSendAPI(sender_psid,{
+        "text" : "envoiye de l'emploie du temps"
+      })
       schedule(sender_psid,callSendAPI)
     }
     // Create the payload for a basic text message
