@@ -83,7 +83,7 @@ const handleMessage = (sender_psid, received_message) => {
     if(received_message.text == "schedule"){
       responseText("envoiye de l'emploie du temps");
       responseText("veillez patienter");
-      schedule(sender_psid,responseText)
+      schedule(responseText)
     }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`

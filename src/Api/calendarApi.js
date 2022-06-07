@@ -2,14 +2,13 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 
-const schedule = (sender_psid,callback) => {
+const schedule = (callback) => {
     // If modifying these scopes, delete token.json.
     callback("je vai vous envoyer l'emploie du temps")
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
-let response;
 const TOKEN_PATH = 'token.json';
 
     fs.readFile('client_secret.json', (err, content) => {
@@ -77,6 +76,7 @@ function getAccessToken(oAuth2Client, callback) {
  */
 function listEvents(auth) {
   const calendar = google.calendar({version: 'v3', auth});
+  callback("event en cours ...")
   calendar.events.list({
     calendarId: 'primary',
     timeMin: (new Date()).toISOString(),
@@ -87,7 +87,6 @@ function listEvents(auth) {
     if (err) return console.log('The API returned an error: ' + err);
     const events = res.data.items;
     if (events.length) {
-        response = "hello"
       console.log('Upcoming 10 events:');
       events.map((event, i) => {
         const start = event.start.dateTime || event.start.date;
