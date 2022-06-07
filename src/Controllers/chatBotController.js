@@ -77,6 +77,12 @@ const handleMessage = (sender_psid, received_message) => {
       "text" : text
     })
   }
+  // check greeting is here and is confident
+  const greeting = firstTrait(received_message.nlp, 'wit$greetings');
+  if (greeting && greeting.confidence > 0.8) {
+    sendResponse('Hi there!');
+  } else { 
+    // default logic
   
   // Check if the message contains text
   if (received_message.text) {    
@@ -169,7 +175,8 @@ const handleMessage = (sender_psid, received_message) => {
 
   
   // Sends the response message
-  callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response);
+  } 
 }
 
 // Handles messaging_postbacks events
