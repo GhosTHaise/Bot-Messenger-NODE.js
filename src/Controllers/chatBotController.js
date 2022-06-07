@@ -77,6 +77,9 @@ const handleMessage = async (sender_psid, received_message) => {
       callSendAPI(sender_psid,{
       "text" : text
      });
+     setTimeout(() =>{
+
+     },1500);
      resolve()
     });
   }
