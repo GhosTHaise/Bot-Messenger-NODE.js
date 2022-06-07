@@ -77,9 +77,8 @@ const handleMessage = (sender_psid, received_message) => {
   // Check if the message contains text
   if (received_message.text) {    
     if(received_message.text == "schedule"){
-      callSendAPI(sender_psid,{
-        "text" : "envoiye de l'emploie du temps"
-      })
+      responseText("envoiye de l'emploie du temps");
+      responseText("veillez patienter");
       schedule(sender_psid,callSendAPI)
     }
     // Create the payload for a basic text message
@@ -163,6 +162,11 @@ const handleMessage = (sender_psid, received_message) => {
       }
     }
   } 
+  const responseText = (text) =>{
+    callSendAPI(sender_psid,{
+      "text" : text
+    })
+  }
   
   // Sends the response message
   callSendAPI(sender_psid, response);
@@ -214,11 +218,7 @@ function callSendAPI(sender_psid, response) {
  * utiliser cette fonction si vous souhaiter retourner du text
  * 
  * **/
- const responseText = (text) =>{
-  return {
-    "text" : text 
-  }
-}
+
 const responseObject = (_type,_element) => {
   return {
     "attachment": {
