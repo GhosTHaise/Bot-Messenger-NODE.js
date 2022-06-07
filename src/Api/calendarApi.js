@@ -92,14 +92,11 @@ function listEvents(auth) {
         const start = event.start.dateTime || event.start.date;
         console.log(event)
         console.log(`${start} - ${event.summary}`);
-        callback(sender_psid,{
-            "text" : "emploie du temps"
-        })
+        
       });
+      callback("send your schedule")
     } else {
-        callback(sender_psid,{
-            "text" : "no upcomming event"
-        })
+        callback("No up comming event")
       console.log('No upcoming events found.');
     }
   });
