@@ -73,44 +73,7 @@ function firstTrait(nlp, name) {
 const handleMessage = async (sender_psid, received_message) => {
   let response;
 
-  const quickReply = (sender_psid,ArrayofValue,text) => {
-  // Construct the message body
-  let quick_replies_content = [];
-  for(let _element in ArrayofValue){
-      quick_replies_content.push({
-        "content_type":"text",
-        "title":_element.title,
-        "payload":_element.data,
-      })
-  }
-  const Quickresponse = {
-    "text":text,
-    "quick_replies":quick_replies_content
-  }
-    let request_body = {
-      recipient: {
-        id: sender_psid
-      },
-      messaging_type: "RESPONSE",
-      message: Quickresponse
-    }
-    // Send the HTTP request to the Messenger Platform
-    request({
-      uri: "https://graph.facebook.com/v14.0/me/messages",
-      qs: { "access_token": process.env.FB_WEB_TOKEN},
-      method: "POST",
-      json: request_body
-    }, (err, res, body) => {
-      if (!err) {
-        console.log('Quick message sent!');
-        /* console.log(response);
-        console.log(res) */
-      } else {
-        console.error("Quick Unable to send message:" + err);
-      }
-    }); 
-  }
-
+  
   const responseText = (text) =>{
     return new Promise((resolve,reject)=>{
       callSendAPI(sender_psid,{
@@ -259,6 +222,44 @@ const handlePostback = (sender_psid, received_postback) => {
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
+
+const quickReply = (sender_psid,ArrayofValue,text) => {
+  // Construct the message body
+  let quick_replies_content = [];
+  for(let _element in ArrayofValue){
+      quick_replies_content.push({
+        "content_type":"text",
+        "title":_element.title,
+        "payload":_element.data,
+      })
+  }
+  const Quickresponse = {
+    "text":text,
+    "quick_replies":quick_replies_content
+  }
+    let request_body = {
+      recipient: {
+        id: sender_psid
+      },
+      messaging_type: "RESPONSE",
+      message: Quickresponse
+    }
+    // Send the HTTP request to the Messenger Platform
+    request({
+      uri: "https://graph.facebook.com/v14.0/me/messages",
+      qs: { "access_token": process.env.FB_WEB_TOKEN},
+      method: "POST",
+      json: request_body
+    }, (err, res, body) => {
+      if (!err) {
+        console.log('Quick message sent!');
+        /* console.log(response);
+        console.log(res) */
+      } else {
+        console.error("Quick Unable to send message:" + err);
+      }
+    }); 
+  }
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response,messagingtype) {
