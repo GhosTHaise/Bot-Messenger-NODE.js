@@ -233,6 +233,7 @@ const quickReply = (sender_psid,ArrayofValue,text) => {
         "payload":_element.data,
       })
   }
+  console.log(quick_replies_content)
   const Quickresponse = {
     "text":text,
     "quick_replies":quick_replies_content
