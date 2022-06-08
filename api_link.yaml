@@ -1,2 +1,9 @@
 porn:
-  -fetch("https://www.eporner.com/api/v2/video/search/").then(response => response.json()).then(response => console.log(response))
+  -fetch("https://www.eporner.com/api/v2/video/search/").then(response => response.json()).then(response => console.log(response));
+wikipedia:
+  -http://fr.wikipedia.org/w/api.php?action=opensearch&search=<research value>  
+animePicture:
+  -url:https://api.waifu.im/random/?selected_tags=oppai&many=true
+  -doc:
+      -https://waifu.im/docs/
+      fetch("https://api.waifu.im/random/?selected_tags=oppai&many=true").then(response => response.json()).then(response => console.log(response));

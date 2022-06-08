@@ -70,19 +70,34 @@ function firstTrait(nlp, name) {
 }
 
 // Handles messages events
-const handleMessage = (sender_psid, received_message) => {
+const handleMessage = async (sender_psid, received_message) => {
   let response;
   const responseText = (text) =>{
-    callSendAPI(sender_psid,{
+    return new Promise((resolve,reject)=>{
+      callSendAPI(sender_psid,{
       "text" : text
-    })
+     });
+     resolve()
+    });
   }
+  //Greeting
+  let entitiesArr = ['wit$greetings','wit$thanks','wit$bye'];
+  let entityChoosen = "";
   // check greeting is here and is confident
-  const greeting = firstTrait(received_message.nlp, 'wit$greetings');
-  if (greeting && greeting.confidence > 0.8) {
-    sendResponse('Hi there!');
+  entitiesArr.forEach((entity)=>{
+    let message_type = firstTrait(received_message.nlp, entity);
+    if(message_type && message_type.confidence > 0.8){
+        entityChoosen = entity;
+    }
+  })
+  if (entityChoosen == "wit$greetings") {
+   await responseText('Hi there !');
+  }else if(entityChoosen == 'wit$thanks'){
+   await responseText("You are welcome !")
+  }else if(entityChoosen == "wit$bye"){
+   await responseText("See you next time !")
   } else { 
-    // default logic
+  // default logic
   
   // Check if the message contains text
   if (received_message.text) {    
@@ -90,6 +105,13 @@ const handleMessage = (sender_psid, received_message) => {
       /* responseText("envoiye de l'emploie du temps");
       responseText("veillez patienter"); */
       scheduleSimple_request(responseText)
+    }
+    if(received_message.text == "Developer"){
+     responseText("Do you know me ? I am the GhosT !").then(()=>{
+       setTimeout(()=>{
+        responseText("See my work on : https://github.com/GhosTHaise")
+       },1500);
+     }) 
     }
     // Create the payload for a basic text message
     //"text": `You sent the message: "${received_message.text}". Now send me an image!`
@@ -214,8 +236,8 @@ function callSendAPI(sender_psid, response) {
   }, (err, res, body) => {
     if (!err) {
       console.log('message sent!');
-      console.log(response);
-      console.log(res)
+      /* console.log(response);
+      console.log(res) */
     } else {
       console.error("Unable to send message:" + err);
     }
