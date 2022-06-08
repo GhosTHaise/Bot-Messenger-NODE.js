@@ -230,7 +230,7 @@ const quickReply = (sender_psid,ArrayofValue,text) => {
       quick_replies_content.push({
         "content_type":"text",
         "title":_element.title,
-        "payload":_element.data,
+        "payload":_element.title,
       })
   }
   console.log(quick_replies_content)
