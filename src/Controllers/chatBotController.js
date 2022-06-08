@@ -1,7 +1,7 @@
 require("dotenv").config();
 const request = require('request');
 const {scheduleSimple_request}= require("../Api/calendarApi");
-
+const {sendPicture,type_supported} = require("../Api/WaifuApi");
 const postWebhook = (req,res) => {
     // Parse the request body from the POST
   let body = req.body;
@@ -72,6 +72,45 @@ function firstTrait(nlp, name) {
 // Handles messages events
 const handleMessage = async (sender_psid, received_message) => {
   let response;
+
+  const quickReply = (sender_psid,ArrayofValue,text) => {
+  // Construct the message body
+  let quick_replies_content = [];
+  for(let _element in ArrayofValue){
+      quick_replies_content.push({
+        "content_type":"text",
+        "title":_element.title,
+        "payload":_element.data,
+      })
+  }
+  const Quickresponse = {
+    "text":text,
+    "quick_replies":quick_replies_content
+  }
+    let request_body = {
+      recipient: {
+        id: sender_psid
+      },
+      messaging_type: "RESPONSE",
+      message: Quickresponse
+    }
+    // Send the HTTP request to the Messenger Platform
+    request({
+      uri: "https://graph.facebook.com/v14.0/me/messages",
+      qs: { "access_token": process.env.FB_WEB_TOKEN},
+      method: "POST",
+      json: request_body
+    }, (err, res, body) => {
+      if (!err) {
+        console.log('Quick message sent!');
+        /* console.log(response);
+        console.log(res) */
+      } else {
+        console.error("Quick Unable to send message:" + err);
+      }
+    }); 
+  }
+
   const responseText = (text) =>{
     return new Promise((resolve,reject)=>{
       callSendAPI(sender_psid,{
@@ -105,6 +144,9 @@ const handleMessage = async (sender_psid, received_message) => {
       /* responseText("envoiye de l'emploie du temps");
       responseText("veillez patienter"); */
       scheduleSimple_request(responseText)
+    }
+    if(received_message.text == "Man of culture"){
+      quickReply(sender_psid,type_supported,"Choose one : ")
     }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am the GhosT !").then(()=>{
@@ -219,7 +261,7 @@ const handlePostback = (sender_psid, received_postback) => {
 }
 
 // Sends response messages via the Send API
-function callSendAPI(sender_psid, response) {
+function callSendAPI(sender_psid, response,messagingtype) {
   // Construct the message body
   let request_body = {
     recipient: {
