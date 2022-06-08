@@ -2,8 +2,8 @@
 const require = createRequire(import.meta.url) */
 const axios = require('axios');
 const { response } = require('express');
-const type_supported = { 
-    "normal" : {
+const type_supported = [ 
+    {
         "title" : "normal",
         "data" : [
             "uniform",
@@ -16,7 +16,7 @@ const type_supported = {
             "selfies"
         ]
     },
-    "culture" : {
+    {
         "title" : "culture",
         "data" : [
             "ass",
@@ -28,7 +28,7 @@ const type_supported = {
             "ero"
         ]
     }
-}
+]
 
 const sendPicture = async(type,call) => {
     let pictureList;

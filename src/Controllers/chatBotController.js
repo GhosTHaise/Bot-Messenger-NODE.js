@@ -109,7 +109,7 @@ const handleMessage = async (sender_psid, received_message) => {
       scheduleSimple_request(responseText)
     }
     if(received_message.text == "Man of culture"){
-      quickReply(sender_psid,type_supported,"Choose one : ")
+      quickReply(sender_psid,type_supported,"Good ! Now choose one : ")
     }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am the GhosT !").then(()=>{
@@ -226,7 +226,7 @@ const handlePostback = (sender_psid, received_postback) => {
 const quickReply = (sender_psid,ArrayofValue,text) => {
   // Construct the message body
   let quick_replies_content = [];
-  for(let _element in ArrayofValue){
+  for(let _element of ArrayofValue){
       quick_replies_content.push({
         "content_type":"text",
         "title":_element.title,
@@ -243,20 +243,8 @@ const quickReply = (sender_psid,ArrayofValue,text) => {
       },
       messaging_type: "RESPONSE",
       message: {
-        "text": "Pick a color:",
-        "quick_replies":[
-          {
-            "content_type":"text",
-            "title":"Red",
-            "payload":"<POSTBACK_PAYLOAD>",
-            "image_url":"http://example.com/img/red.png"
-          },{
-            "content_type":"text",
-            "title":"Green",
-            "payload":"<POSTBACK_PAYLOAD>",
-            "image_url":"http://example.com/img/green.png"
-          }
-        ]
+        "text": text,
+        "quick_replies":quick_replies_content
       }
     }
     // Send the HTTP request to the Messenger Platform
