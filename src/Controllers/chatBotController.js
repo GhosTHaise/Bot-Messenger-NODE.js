@@ -126,6 +126,7 @@ const handleMessage = async (sender_psid, received_message) => {
       if(received_message.text == _element.title){
           for(let subdata of _element.data){
             if(received_message.text == subdata){
+              console.log("send your picture")
               let elements = [];
                 for(let picture of sendPicture(received_message.text)){
                   elements.push(elementsConstructeur(
