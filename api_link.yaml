@@ -7,3 +7,7 @@ animePicture:
   -doc:
       -https://waifu.im/docs/
       fetch("https://api.waifu.im/random/?selected_tags=oppai&many=true").then(response => response.json()).then(response => console.log(response));
+findAnimebyScreenshoot:
+  -https://soruly.github.io/trace.moe-api/#/
+MathApi:
+  -https://newton.vercel.app/        

@@ -112,9 +112,9 @@ const handleMessage = async (sender_psid, received_message) => {
       quickReply(sender_psid,type_supported,"Good ! Now choose one : ")
     }
     if(received_message.text == "Developer"){
-     responseText("Do you know me ? I am the GhosT !").then(()=>{
+     responseText("Do you know me ? I am GhosT !").then(()=>{
        setTimeout(()=>{
-        responseText("See my work on : https://github.com/GhosTHaise")
+        responseText("See my works on : https://github.com/GhosTHaise")
        },1500);
      }) 
     }
@@ -209,18 +209,30 @@ const handleMessage = async (sender_psid, received_message) => {
 // Handles messaging_postbacks events
 const handlePostback = (sender_psid, received_postback) => {
   let response;
-  
   // Get the payload for the postback
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
+  for(let _element of type_supported){
+    if(payload == _element.title){
+        const data = [];
+        for(let subdata of _element.data){
+          data.push({
+          "title": subdata
+        })
+        }
+        quickReply(sender_psid,data,"Our Available category : ");
+    }
   }
-  // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+  if(payload == "yes" || payload == "no"){
+    if (payload === 'yes') {
+      response = { "text": "Thanks!" }
+    } else if (payload === 'no') {
+      response = { "text": "Oops, try sending another image." }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  }
 }
 
 const quickReply = (sender_psid,ArrayofValue,text) => {
@@ -234,10 +246,6 @@ const quickReply = (sender_psid,ArrayofValue,text) => {
       })
   }
   console.log(quick_replies_content)
-  const Quickresponse = {
-    "text":text,
-    "quick_replies":quick_replies_content
-  }
     let request_body = {
       recipient: {
         id: sender_psid
