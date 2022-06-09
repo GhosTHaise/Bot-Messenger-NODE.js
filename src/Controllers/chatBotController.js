@@ -211,7 +211,11 @@ const handlePostback = (sender_psid, received_postback) => {
   let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
-
+  if(payload == "culture"){
+    callSendAPI(sender_psid,{
+      "text" : "you are a good person !"
+    })
+  }
   // Set the response based on the postback payload
   for(let _element of type_supported){
     if(payload == _element.title){
