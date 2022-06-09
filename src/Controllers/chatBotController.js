@@ -111,6 +111,17 @@ const handleMessage = async (sender_psid, received_message) => {
     if(received_message.text == "Man of culture"){
       quickReply(sender_psid,type_supported,"Good ! Now choose one : ")
     }
+    for(let _element of type_supported){
+      if(received_message.text == _element.title){
+          const data = [];
+          for(let subdata of _element.data){
+            data.push({
+            "title": subdata
+          })
+          }
+          quickReply(sender_psid,data,"Our Available category : ");
+      }
+    }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am GhosT !").then(()=>{
        setTimeout(()=>{
@@ -211,24 +222,9 @@ const handlePostback = (sender_psid, received_postback) => {
   let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log(payload)
-  if(payload == "culture"){
-    callSendAPI(sender_psid,{
-      "text" : "you are a good person !"
-    })
-  }
+
   // Set the response based on the postback payload
-  for(let _element of type_supported){
-    if(payload == _element.title){
-        const data = [];
-        for(let subdata of _element.data){
-          data.push({
-          "title": subdata
-        })
-        }
-        quickReply(sender_psid,data,"Our Available category : ");
-    }
-  }
+  
   if(payload == "yes" || payload == "no"){
     if (payload === 'yes') {
       response = { "text": "Thanks!" }
