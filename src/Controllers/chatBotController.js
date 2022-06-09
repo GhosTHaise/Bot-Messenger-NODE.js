@@ -207,12 +207,12 @@ const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
   console.log(payload)
   // Set the response based on the postback payload
-  if(JSON.parse(JSON.stringify(payload)).picture_id != "undefined"){
+  if(JSON.parse(JSON.stringify(payload)).picture_id){
     callSendAPI(sender_psid,{
       "text" : "Download picture comming early"
     })
   }
-  if(JSON.parse(JSON.stringify(payload)).url != "undefined"){
+  if(JSON.parse(JSON.stringify(payload)).url){
     callSendAPI(sender_psid,{
       "text" : "Download picture on : "+JSON.parse(JSON.stringify(payload)).url
     })
