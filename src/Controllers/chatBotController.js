@@ -122,6 +122,28 @@ const handleMessage = async (sender_psid, received_message) => {
           quickReply(sender_psid,data,"Our Available category : ");
       }
     }
+    for(let _element of type_supported){
+      if(received_message.text == _element.title){
+          for(let subdata of _element.data){
+            if(received_message.text == subdata){
+              let elements = [];
+                for(let picture of sendPicture(received_message.text)){
+                  elements.push(elementsConstructeur(
+                      "#"+picture.image_id,
+                      picture.width+" x "+picture.height,
+                      picture.url,
+                      [
+                        buttonConstructor("Send me this !",picture.file),
+                        buttonConstructor("url","url")
+                      ]
+                  ))
+                };
+                callSendAPI(sender_psid,responseObject(elements));   
+            }
+              
+          }
+      }
+    }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am GhosT !").then(()=>{
        setTimeout(()=>{
@@ -168,39 +190,7 @@ const handleMessage = async (sender_psid, received_message) => {
   
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "image_aspect_ratio" : "square",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              
-            ],
-          },{
-            "title": "Is this the right picture 2?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
+    
   } 
 
   
@@ -295,17 +285,33 @@ function callSendAPI(sender_psid, response,messagingtype) {
  * utiliser cette fonction si vous souhaiter retourner du text
  * 
  * **/
-
-const responseObject = (_type,_element) => {
+//Build generic template
+const buttonConstructor = (_title,_payload) => {
   return {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "type",
-        "elements": _element
+    "type": "postback",
+    "title": _title,
+    "payload": _payload,
+  }
+}
+const elementsConstructeur = (_title,_subtitle,_url,_Button) => {
+  return {
+    "title": _title,
+    "subtitle": _subtitle,
+    "image_url": _url,
+    "buttons": _Button,
+  }
+}
+const responseObject = (_element) => {
+  return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "image_aspect_ratio" : "square",
+          "elements": _element
+        }
       }
     }
-  } 
 }
 module.exports = {
     postWebhook : postWebhook,
