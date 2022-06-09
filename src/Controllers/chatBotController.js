@@ -123,7 +123,6 @@ const handleMessage = async (sender_psid, received_message) => {
       }
     }
     for(let _element of type_supported){
-      if(received_message.text == _element.title){
           for(let subdata of _element.data){
             console.log("send your picture : "+subdata)
             if(received_message.text == subdata){
@@ -145,7 +144,6 @@ const handleMessage = async (sender_psid, received_message) => {
             }
               
           }
-      }
     }
     if(received_message.text == "Developer"){
      responseText("Do you know me ? I am GhosT !").then(()=>{
