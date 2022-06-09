@@ -173,6 +173,7 @@ const handleMessage = async (sender_psid, received_message) => {
         "type": "template",
         "payload": {
           "template_type": "generic",
+          "image_aspect_ratio" : "square",
           "elements": [{
             "title": "Is this the right picture?",
             "subtitle": "Tap a button to answer.",
