@@ -122,9 +122,11 @@ const handleMessage = async (sender_psid, received_message) => {
           quickReply(sender_psid,data,"Our Available category : ");
       }
     }
+    console.log(sendPicture("hentai"))
     for(let _element of type_supported){
       if(received_message.text == _element.title){
           for(let subdata of _element.data){
+            console.log("send your picture : "+subdata)
             if(received_message.text == subdata){
               console.log("send your picture")
               let elements = [];
