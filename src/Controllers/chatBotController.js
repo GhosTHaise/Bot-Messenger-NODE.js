@@ -205,8 +205,8 @@ const handlePostback = (sender_psid, received_postback) => {
   let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log(payload)
-  console.log(typeof JSON.parse(JSON.stringify(payload)))
+  console.log(JSON.parse(payload))
+  console.log(JSON.parse(JSON.parse(JSON.stringify(payload))))
   // Set the response based on the postback payload
   if(JSON.parse(JSON.stringify(payload)).title == "get_picture"){
     callSendAPI(sender_psid,{
