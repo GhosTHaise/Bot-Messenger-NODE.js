@@ -122,7 +122,6 @@ const handleMessage = async (sender_psid, received_message) => {
           quickReply(sender_psid,data,"Our Available category : ");
       }
     }
-    console.log(await sendPicture("hentai"))
     for(let _element of type_supported){
       if(received_message.text == _element.title){
           for(let subdata of _element.data){
@@ -130,7 +129,8 @@ const handleMessage = async (sender_psid, received_message) => {
             if(received_message.text == subdata){
               console.log("send your picture")
               let elements = [];
-                for(let picture of sendPicture(received_message.text)){
+              let waifu_api_result = await sendPicture(received_message.text);
+                for(let picture of waifu_api_result){
                   elements.push(elementsConstructeur(
                       "#"+picture.image_id,
                       picture.width+" x "+picture.height,
