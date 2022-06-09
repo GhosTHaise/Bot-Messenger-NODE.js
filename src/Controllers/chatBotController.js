@@ -135,8 +135,8 @@ const handleMessage = async (sender_psid, received_message) => {
                       picture.width+" x "+picture.height,
                       picture.url,
                       [
-                        buttonConstructor("Send me this !",picture.file),
-                        buttonConstructor("url","url")
+                        buttonConstructor("Send me this !",JSON.stringify({"picture_id":picture.file})),
+                        buttonConstructor("url",JSON.stringify({"url":picture.url}))
                       ]
                   ))
                 };
@@ -207,7 +207,16 @@ const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  
+  if(JSON.parse(payload).picture_id){
+    callSendAPI(sender_psid,{
+      "text" : "Download picture comming early"
+    })
+  }
+  if(JSON.parse(payload).url){
+    callSendAPI(sender_psid,{
+      "text" : JSON.parse(payload).url
+    })
+  }
   if(payload == "yes" || payload == "no"){
     if (payload === 'yes') {
       response = { "text": "Thanks!" }
