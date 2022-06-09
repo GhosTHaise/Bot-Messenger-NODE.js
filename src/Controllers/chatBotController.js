@@ -135,8 +135,8 @@ const handleMessage = async (sender_psid, received_message) => {
                       picture.width+" x "+picture.height,
                       picture.url,
                       [
-                        buttonConstructor("Send me this !",JSON.stringify({"title":"get_picture","picture_id":picture.file})),
-                        buttonConstructor("url",JSON.stringify({"title":"get_url_picture","url":picture.url}))
+                        buttonConstructor("Send me this !","userToBot->getPicture->"+picture.file),
+                        buttonConstructor("url","userToBot->getPictureUrl->"+picture.url)
                       ]
                   ))
                 };
@@ -205,19 +205,21 @@ const handlePostback = (sender_psid, received_postback) => {
   let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
-  let res = JSON.parse(payload)
-  console.log(JSON.parse(JSON.stringify(res)))
+  console.log(payload)
   // Set the response based on the postback payload
-  if(JSON.parse(JSON.stringify(payload)).title == "get_picture"){
-    callSendAPI(sender_psid,{
-      "text" : "Download picture comming early"
-    })
+  if(payload.split("->").length > 0){
+      let res = payload.split("->");
+      if(res[1] == "getPicture"){
+        callSendAPI(sender_psid,{
+          "text" : "Download picture comming early"
+        })
+      }else if(res[1] == "getPictureUrl"){
+        callSendAPI(sender_psid,{
+          "text" : "You can take picture on : "+res[2]
+        })
+      }
   }
-  if(JSON.parse(JSON.stringify(payload)).title == "get_url_picture"){
-    callSendAPI(sender_psid,{
-      "text" : "Download picture on : "+JSON.parse(JSON.stringify(payload)).url
-    })
-  }
+  
   if(payload == "yes" || payload == "no"){
     if (payload === 'yes') {
       response = { "text": "Thanks!" }
