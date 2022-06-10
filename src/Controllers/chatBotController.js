@@ -322,8 +322,9 @@ const send_file_2_attachementId = (_sender_psid,_type,_url) => {
       json: request_body
     },(err,res,body)=>{
       if(!err){
-         console.log(res)
-         send_media_file(_sender_psid,_type,res)
+        console.log(res)
+         console.log(body)
+         send_media_file(_sender_psid,_type,body)
       }else{
         console.log("Sorry,we are unable to send this picture")
       }
