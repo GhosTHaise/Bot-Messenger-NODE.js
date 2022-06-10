@@ -210,16 +210,17 @@ const handlePostback = (sender_psid, received_postback) => {
   if(payload.split("->").length > 0){
       let res = payload.split("->");
       if(res[1] == "getPicture"){
-        callSendAPI(sender_psid,{
-          "text" : "Download picture comming early"
-        })
+          send_file_2_attachementId(sender_psid,"image",res[2]);
+          callSendAPI(sender_psid,{
+            "text" : "Don't forget to like and share our page"
+          });
       }else if(res[1] == "getPictureUrl"){
         callSendAPI(sender_psid,{
-          "text" : "You can take picture on : "+res[2]
+          "text" : "You can take this picture on : "+res[2]
         })
       }
   }
-  
+
   if(payload == "yes" || payload == "no"){
     if (payload === 'yes') {
       response = { "text": "Thanks!" }
@@ -298,6 +299,44 @@ function callSendAPI(sender_psid, response,messagingtype) {
  * utiliser cette fonction si vous souhaiter retourner du text
  * 
  * **/
+//TransferFile to attachment_id
+const send_file_2_attachementId = (_sender_psid,_type,_url) => {
+    let request_body = {
+      "recipient":{
+        "id": _sender_psid
+      },
+      "message":{
+        "attachment":{
+          "type": _type, 
+          "payload":{
+            "url" : _url,
+            "is_reusable" : true
+          }
+        }
+      }
+    }
+    request({
+      uri : "https://graph.facebook.com/v14.0/me/messages",
+      qs: { "access_token": process.env.FB_WEB_TOKEN},
+      method: "POST",
+      json: request_body
+    },(err,res,body)=>{
+      if(!err){
+         console.log(res)
+         send_media_file(_sender_psid,_type,res)
+      }else{
+        console.log("Sorry,we are unable to send this picture")
+      }
+    })
+}
+//envoyer un fichier de type media
+const send_media_file = (_sender_psid,_type,_attachment_id) =>{
+  const send_media_request = {"attachment":{
+    "type":_type, 
+    "payload": _attachment_id
+  }}
+  callSendAPI(_sender_psid,send_media_request);
+}
 //Build generic template
 const buttonConstructor = (_title,_payload) => {
   return {
