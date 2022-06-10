@@ -210,6 +210,7 @@ const handlePostback = (sender_psid, received_postback) => {
   if(payload.split("->").length > 0){
       let res = payload.split("->");
       if(res[1] == "getPicture"){
+          console.log("https://cdn.waifu.im/"+res[2]+".jpg")
           send_file_2_attachementId(sender_psid,"image","https://cdn.waifu.im/"+res[2]+".jpg");
           callSendAPI(sender_psid,{
             "text" : "Don't forget to like and share our page"
