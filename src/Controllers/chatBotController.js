@@ -111,10 +111,44 @@ const handleMessage = async (sender_psid, received_message) => {
     if(received_message.text == "Man of culture"){
       quickReply(sender_psid,type_supported,"Good ! Now choose one : ")
     }
+    for(let _element of type_supported){
+      if(received_message.text == _element.title){
+          const data = [];
+          for(let subdata of _element.data){
+            data.push({
+            "title": subdata
+          })
+          }
+          quickReply(sender_psid,data,"Our Available category : ");
+      }
+    }
+    for(let _element of type_supported){
+          for(let subdata of _element.data){
+            console.log("send your picture : "+subdata)
+            if(received_message.text == subdata){
+              console.log("send your picture")
+              let elements = [];
+              let waifu_api_result = await sendPicture(received_message.text);
+                for(let picture of waifu_api_result){
+                  elements.push(elementsConstructeur(
+                      "#"+picture.image_id,
+                      picture.width+" x "+picture.height,
+                      picture.url,
+                      [
+                        buttonConstructor("Send me this !","userToBot->getPicture->"+picture.file),
+                        buttonConstructor("url","userToBot->getPictureUrl->"+picture.url)
+                      ]
+                  ))
+                };
+                callSendAPI(sender_psid,responseObject(elements));   
+            }
+              
+          }
+    }
     if(received_message.text == "Developer"){
-     responseText("Do you know me ? I am the GhosT !").then(()=>{
+     responseText("Do you know me ? I am GhosT !").then(()=>{
        setTimeout(()=>{
-        responseText("See my work on : https://github.com/GhosTHaise")
+        responseText("See my works on : https://github.com/GhosTHaise")
        },1500);
      }) 
     }
@@ -157,47 +191,7 @@ const handleMessage = async (sender_psid, received_message) => {
   
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          },{
-            "title": "Is this the right picture 2?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
+    
   } 
 
   
@@ -209,18 +203,32 @@ const handleMessage = async (sender_psid, received_message) => {
 // Handles messaging_postbacks events
 const handlePostback = (sender_psid, received_postback) => {
   let response;
-  
   // Get the payload for the postback
   let payload = received_postback.payload;
-
+  console.log(payload)
   // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
+  if(payload.split("->").length > 0){
+      let res = payload.split("->");
+      if(res[1] == "getPicture"){
+        callSendAPI(sender_psid,{
+          "text" : "Download picture comming early"
+        })
+      }else if(res[1] == "getPictureUrl"){
+        callSendAPI(sender_psid,{
+          "text" : "You can take picture on : "+res[2]
+        })
+      }
   }
-  // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+  
+  if(payload == "yes" || payload == "no"){
+    if (payload === 'yes') {
+      response = { "text": "Thanks!" }
+    } else if (payload === 'no') {
+      response = { "text": "Oops, try sending another image." }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  }
 }
 
 const quickReply = (sender_psid,ArrayofValue,text) => {
@@ -234,10 +242,6 @@ const quickReply = (sender_psid,ArrayofValue,text) => {
       })
   }
   console.log(quick_replies_content)
-  const Quickresponse = {
-    "text":text,
-    "quick_replies":quick_replies_content
-  }
     let request_body = {
       recipient: {
         id: sender_psid
@@ -294,17 +298,33 @@ function callSendAPI(sender_psid, response,messagingtype) {
  * utiliser cette fonction si vous souhaiter retourner du text
  * 
  * **/
-
-const responseObject = (_type,_element) => {
+//Build generic template
+const buttonConstructor = (_title,_payload) => {
   return {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "type",
-        "elements": _element
+    "type": "postback",
+    "title": _title,
+    "payload": _payload,
+  }
+}
+const elementsConstructeur = (_title,_subtitle,_url,_Button) => {
+  return {
+    "title": _title,
+    "subtitle": _subtitle,
+    "image_url": _url,
+    "buttons": _Button,
+  }
+}
+const responseObject = (_element) => {
+  return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "image_aspect_ratio" : "square",
+          "elements": _element
+        }
       }
     }
-  } 
 }
 module.exports = {
     postWebhook : postWebhook,

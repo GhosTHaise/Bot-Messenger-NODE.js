@@ -30,7 +30,7 @@ const type_supported = [
     }
 ]
 
-const sendPicture = async(type,call) => {
+const sendPicture = async(type) => {
     let pictureList;
     const options = {
         method: 'GET',
@@ -38,8 +38,7 @@ const sendPicture = async(type,call) => {
       };
     const fetchResult = await axios.request(options)
     //pictureList = fetchResult.images.slice(0,10);
-    console.log("hello");
-    console.log(fetchResult.data.images.slice(0,10));
+    return fetchResult.data.images.slice(0,10);
 }
 
 module.exports = {
