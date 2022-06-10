@@ -135,7 +135,7 @@ const handleMessage = async (sender_psid, received_message) => {
                       picture.width+" x "+picture.height,
                       picture.url,
                       [
-                        buttonConstructor("Send me this !","userToBot->getPicture->"+picture.file),
+                        buttonConstructor("Send me this !","userToBot->getPicture->"+picture.url),
                         buttonConstructor("url","userToBot->getPictureUrl->"+picture.url)
                       ]
                   ))
@@ -210,8 +210,8 @@ const handlePostback = (sender_psid, received_postback) => {
   if(payload.split("->").length > 0){
       let res = payload.split("->");
       if(res[1] == "getPicture"){
-          console.log("https://cdn.waifu.im/"+res[2]+".jpg")
-          send_file_2_attachementId(sender_psid,"image","https://cdn.waifu.im/"+res[2]+".jpg");
+          //console.log("https://cdn.waifu.im/"+res[2]+".jpg")
+          send_file_2_attachementId(sender_psid,"image",res[2]);
           callSendAPI(sender_psid,{
             "text" : "Don't forget to like and share our page"
           });
@@ -334,7 +334,9 @@ const send_file_2_attachementId = (_sender_psid,_type,_url) => {
 const send_media_file = (_sender_psid,_type,_attachment_id) =>{
   const send_media_request = {"attachment":{
     "type":_type, 
-    "payload": _attachment_id
+    "payload": {
+      "attachment_id" : _attachment_id
+    }
   }}
   callSendAPI(_sender_psid,send_media_request);
 }
