@@ -124,7 +124,7 @@ const handleMessage = async (sender_psid, received_message) => {
     }
     for(let _element of type_supported){
           for(let subdata of _element.data){
-            console.log("send your picture : "+subdata)
+            //console.log("send your picture : "+subdata)
             if(received_message.text == subdata){
               console.log("send your picture")
               let elements = [];
@@ -205,7 +205,7 @@ const handlePostback = (sender_psid, received_postback) => {
   let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log(payload)
+  //console.log(payload)
   // Set the response based on the postback payload
   if(payload.split("->").length > 0){
       let res = payload.split("->");
@@ -215,6 +215,7 @@ const handlePostback = (sender_psid, received_postback) => {
           callSendAPI(sender_psid,{
             "text" : "Don't forget to like and share our page"
           });
+          console.log("picture send via send_file_2_attachment")
       }else if(res[1] == "getPictureUrl"){
         callSendAPI(sender_psid,{
           "text" : "You can take this picture on : "+res[2]
@@ -243,7 +244,7 @@ const quickReply = (sender_psid,ArrayofValue,text) => {
         "payload":_element.title,
       })
   }
-  console.log(quick_replies_content)
+  //console.log(quick_replies_content)
     let request_body = {
       recipient: {
         id: sender_psid
